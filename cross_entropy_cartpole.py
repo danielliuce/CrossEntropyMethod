@@ -49,12 +49,14 @@ def iterate_batches(env, net, batch_size):
         obs_v = torch.FloatTensor([obs]) #convert a 4x1 into tensor of 1x4
         act_probs_v = sm(net(obs_v)) #feed to softmax function for probability distribution
         act_probs = act_probs_v.data.numpy()[0] #returns tensors which track gradients, unpack them into a NumPy array
-      
+
         #we have probability of actions
         #use this distribution to obtain actual action at random
         #obtain next observation, reward, indcitaion episode is ending, and extra info
         action = np.random.choice(len(act_probs), p=act_probs)
         next_obs, reward, is_done, extra_info = env.step(action)
+        #env.render() for video
+
 
         #Step number 2, calculate total award for every espidoe
         #Accumulate total award
@@ -103,9 +105,7 @@ def filter_batch(batch, percentile):
 
 if __name__ == "__main__":
     env = gym.make("CartPole-v1")
-    #uses gym version 0.15.3 for monitor
-    #env = gym.wrappers.Monitor(env, directory="mon", force=True)
-    #env.render() maybe?
+
     obs_size = env.observation_space.shape[0]
     n_actions = env.action_space.n
 
@@ -135,5 +135,6 @@ if __name__ == "__main__":
             print("Solved!")
             break
     writer.close()
+    #env.close()
 
-#Results and images in images under issues
+
