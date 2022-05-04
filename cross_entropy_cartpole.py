@@ -103,7 +103,9 @@ def filter_batch(batch, percentile):
 
 if __name__ == "__main__":
     env = gym.make("CartPole-v1")
-    # env = gym.wrappers.Monitor(env, directory="mon", force=True)
+    #uses gym version 0.15.3 for monitor
+    #env = gym.wrappers.Monitor(env, directory="mon", force=True)
+    #env.render() maybe?
     obs_size = env.observation_space.shape[0]
     n_actions = env.action_space.n
 
