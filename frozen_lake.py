@@ -24,12 +24,12 @@ GAMMA = 0.9 #Discount factor applied to reward for episode to depend on episode 
 #Increase training time, more itreations
 
 #information about the environment 
-e = gym.make("FrozenLake-v0")
+e = gym.make("FrozenLake-v1")
 
 print(e.observation_space)
 print(e.action_space)
 print(e.reset())
-e.render()
+#e.render()
 
 #Discrete environment, number from 0 to 15 
 #Action space discrete, 0 to 3
@@ -76,6 +76,8 @@ def iterate_batches(env, net, batch_size):
         #obtain next observation, reward, indcitaion episode is ending, and extra info
         action = np.random.choice(len(act_probs), p=act_probs)
         next_obs, reward, is_done, extra_info = env.step(action)
+
+        #env.render() for video
 
         #Step number 2, calculate total award for every espidoe
         #Accumulate total award
@@ -157,3 +159,6 @@ if __name__ == "__main__":
             print("Solved!")
             break
     writer.close()
+    #env.close()
+
+#e.close()
